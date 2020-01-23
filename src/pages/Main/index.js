@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 // icons
 import { FaGithubAlt, FaPlus, FaSpinner } from 'react-icons/fa'
 
-import { Container, Form, SubmitButton } from './style';
+import { Container, Form, SubmitButton, List } from './style';
 
 // api
 import Api from '../../services/api';
@@ -34,7 +34,7 @@ export default class Main extends Component {
 
     const data = {
       name: response.data.full_name,
-      URL: response.data.git_url,
+      url: response.data.git_url,
     };
 
     this.setState({
@@ -46,7 +46,7 @@ export default class Main extends Component {
   };
 
   render() {
-    const { newRepository, loading } = this.state;
+    const { newRepository, loading, repositories } = this.state;
 
     return (
       <Container>
@@ -67,6 +67,16 @@ export default class Main extends Component {
             { loading ? <FaSpinner color="#fff" size={14} /> : <FaPlus color="#FFF" size={14}></FaPlus> }
           </SubmitButton>
         </Form>
+
+        <List>
+          {repositories.map(repository => (
+            <li key={repository.name}>
+              <span>{repository.name}</span>
+              {/* <span>{repository.url}</span> */}
+              <a href='' >More</a>
+            </li>
+          ))}
+        </List>
 
       </Container>
     );
