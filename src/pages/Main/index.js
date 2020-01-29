@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 // icons
 import { FaGithubAlt, FaPlus, FaSpinner } from 'react-icons/fa'
 
-import { Container, Form, SubmitButton, List } from './style';
-
+import {Form, SubmitButton, List } from './style';
+import Container from '../../components/container/index';
 // api
 import Api from '../../services/api';
 
@@ -28,7 +29,7 @@ export default class Main extends Component {
   componentDidUpdate(_, prevState) {
     const { repositories } = this.state;
 
-    if(prevState.repositories != repositories) {
+    if(prevState.repositories !== repositories) {
       localStorage.setItem('repositories', JSON.stringify(repositories));
     }
   }
@@ -91,7 +92,7 @@ export default class Main extends Component {
             <li key={repository.name}>
               <span>{repository.name}</span>
               {/* <span>{repository.url}</span> */}
-              <a href='' >More</a>
+              <Link to={`/repository/${encodeURIComponent(repository.name)}`} >More</Link>
             </li>
           ))}
         </List>
